@@ -179,9 +179,9 @@ namespace DAL_Project2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4bbcf694-b6ab-4f0a-8f19-8cd4208e08bd",
+                            Id = "6745d46f-6036-4d71-9bc6-60cc229fae9a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "acc07745-2341-4771-b339-3ec332afc717",
+                            ConcurrencyStamp = "3cc6200d-9f89-430f-80b5-3768e121e6d6",
                             Email = "superadmin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "super",
@@ -189,7 +189,7 @@ namespace DAL_Project2.Migrations
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = true,
                             Rating = 0,
-                            SecurityStamp = "1a787f31-4d0c-4e90-a2bd-2783dda49fdc",
+                            SecurityStamp = "59c258d0-3374-4403-ae53-7555be68740c",
                             TwoFactorEnabled = false,
                             UserName = "superadmin",
                             UsernameChangeLimit = 10
@@ -225,26 +225,26 @@ namespace DAL_Project2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f92ea19d-eb1c-4d54-ad7a-100b7bfafefd",
-                            ConcurrencyStamp = "94cd2cf2-b6db-4944-8ab7-b37f021646ad",
+                            Id = "9594e2b9-5593-4cc4-a91a-eb03f23e980e",
+                            ConcurrencyStamp = "bcd2addb-4218-49b2-8483-1b3235bcb68a",
                             Name = "SuperAdmin"
                         },
                         new
                         {
-                            Id = "18de0322-41c2-49c6-b2bf-c7d4515d13c5",
-                            ConcurrencyStamp = "f48d2050-c460-4c1c-9c30-c58e811ad793",
+                            Id = "79faa886-8479-4cae-a059-d35461a401cf",
+                            ConcurrencyStamp = "436bda65-2632-4854-a767-104dec31bd79",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "44dde754-a12f-4516-b867-905784563bb4",
-                            ConcurrencyStamp = "3be78428-a631-4c4e-a0ed-836a915a48ce",
+                            Id = "8471493d-6697-442a-89c5-c4a5190c1ec6",
+                            ConcurrencyStamp = "0c393d90-a701-462c-b111-ae6dbca65fff",
                             Name = "Moderator"
                         },
                         new
                         {
-                            Id = "fb407e13-0af0-413e-b348-e8ff029259ab",
-                            ConcurrencyStamp = "7be36b43-d8eb-439c-8ede-6468807c9826",
+                            Id = "7d30abd5-9a4f-4acc-b2f9-70b158b50e28",
+                            ConcurrencyStamp = "9da1fccf-f857-4da8-9964-309605364ec5",
                             Name = "Basic"
                         });
                 });

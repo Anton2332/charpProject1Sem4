@@ -2,10 +2,10 @@
 
 namespace Domain.Entities
 {
-    public class OrderToCategory : BaseEntity
+    public class OrderToCategorys : BaseEntity
     {
         public int OrderId { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public Categorys Category { get; set; }
     }
 }

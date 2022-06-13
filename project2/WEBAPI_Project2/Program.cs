@@ -16,6 +16,9 @@ using DAL_Project2.Interfaces;
 using DAL_Project2.Repository;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using WEBAPI_Project2.Helpers;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,37 +64,42 @@ builder.Services.AddIdentity<User, IdentityRole>()
 //                    };
 //                });
 
-var jwtSection = builder.Configuration.GetSection("JWT");
-builder.Services.Configure<JWT>(jwtSection);
-var JWT = jwtSection.Get<JWT>();
-var key = Encoding.ASCII.GetBytes(JWT.Key);
+//var jwtSection = builder.Configuration.GetSection("JWT");
+//builder.Services.Configure<JWT>(jwtSection);
+//var JWT = jwtSection.Get<JWT>();
+//var key = Encoding.ASCII.GetBytes(JWT.Key);
 
-builder.Services.AddAuthentication("OAuth").AddJwtBearer("OAuth",options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidIssuer = JWT.Issuer,
-        ValidAudience = JWT.Audience,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-    };
-});
+//builder.Services.AddAuthentication("OAuth").AddJwtBearer("OAuth",options =>
+//{
+//    options.TokenValidationParameters = new TokenValidationParameters()
+//    {
+//        ValidIssuer = JWT.Issuer,
+//        ValidAudience = JWT.Audience,
+//        IssuerSigningKey = new SymmetricSecurityKey(key),
+//    };
+//});
 
 
 builder.Services.AddTransient<IOrdersRepository, OrdersRepository>();
 builder.Services.AddTransient<IOffersRepository, OffersRepository>();
 
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 builder.Services.AddTransient<IIdentityService, IdentityService>();
+builder.Services.AddTransient<IIdentity, Identity>();
 builder.Services.AddTransient<IOffersService,OffersService>();
 builder.Services.AddTransient<IOrdersService, OrdersService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-
+builder.Services.AddTransient<IValidatorFactory, ServiceProviderValidatorFactory>();
 builder.Services.AddMvc(options =>
 {
     options.EnableEndpointRouting = false;
+}).AddFluentValidation(configuration =>
+{
+    configuration.RegisterValidatorsFromAssemblies(
+        AppDomain.CurrentDomain.GetAssemblies());
 });
                     //.AddFluentValidation(configuration =>
                     //{
@@ -99,11 +107,12 @@ builder.Services.AddMvc(options =>
                     //        AppDomain.CurrentDomain.GetAssemblies());
                     //});
 
-//builder.Services.AddIdentityCore<User>()
-//                    .AddRoles<IdentityRole>()
-//                    .AddSignInManager<SignInManager<User>>()
-//                    .AddDefaultTokenProviders()
-//                    .AddEntityFrameworkStores<DBContext>();
+
+builder.Services.AddIdentityCore<User>()
+                    .AddRoles<IdentityRole>()
+                    .AddSignInManager<SignInManager<User>>()
+                    .AddDefaultTokenProviders()
+                    .AddEntityFrameworkStores<DBContext>();
 
 builder.Services.AddMvc();
 
@@ -152,6 +161,7 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+app.UseMiddleware<JwtMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -165,9 +175,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseAuthorization();
-
-app.UseAuthentication();
+app.UseEndpoints(x => x.MapControllers());
 
 app.MapControllers();
 

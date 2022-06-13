@@ -2,9 +2,9 @@
 using BLL_Project2.DTO.Requests;
 using BLL_Project2.DTO.Responses;
 using BLL_Project2.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using WEBAPI_Project2.Helpers;
 
 namespace WEBAPI_Project2.Controllers
 {
@@ -13,12 +13,14 @@ namespace WEBAPI_Project2.Controllers
     public class IdentityController : ControllerBase
     {
         private readonly IIdentityService identityService;
+        private readonly IIdentity _identity;
         private IConfiguration _config;
 
-        public IdentityController(IIdentityService identityService,IConfiguration config)
+        public IdentityController(IIdentityService identityService,IIdentity identity,IConfiguration config)
         {
             this.identityService = identityService;
             this._config = config;
+            _identity = identity;
 
         }
 
@@ -45,8 +47,8 @@ namespace WEBAPI_Project2.Controllers
         {
             try
             {
-                var response = await identityService.SignInAsync(request);
-                    SetRefreshTokenInCookie(response.RefreshToken);
+                var response = await _identity.SignInAsync(request);
+                    //SetRefreshTokenInCookie(response.RefreshToken);
                 return Ok(response);
             }
             catch (KeyNotFoundException e)
@@ -59,7 +61,6 @@ namespace WEBAPI_Project2.Controllers
             }
         }
 
-        [AllowAnonymous]
         [HttpPost("RefreshToken")]
         public async Task<IActionResult> RefreshToken()
         {
@@ -92,7 +93,7 @@ namespace WEBAPI_Project2.Controllers
         {
             try
             {
-                var response = await identityService.SignUpAsync(request);
+                var response = await _identity.SignUpAsync(request);
                 return Ok(response);
             }
             catch (Exception e)
