@@ -9,9 +9,12 @@ namespace WEB.Controllers
     [Route("api/[controller]")]
     public class CategoryController:ControllerBase
     {
-        private ISender _mediator = null!;
+        private ISender _mediator;
 
-        protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<ISender>();
+        public CategoryController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
         //[HttpGet]
         //public async Task<ActionResult<int>> Get(int id)

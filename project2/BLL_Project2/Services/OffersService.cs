@@ -27,17 +27,21 @@ namespace BLL_Project2.Services
         {
             var result = _mapper.Map<OfferRequestDTO,Offers>(offer);
             await _unitOfWork.OffersRepository.AddAsync(result);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(OfferRequestDTO offer)
         {
             var result = _mapper.Map<OfferRequestDTO, Offers>(offer);
             await _unitOfWork.OffersRepository.UpdateAsync(result);
+
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
             await _unitOfWork.OffersRepository.RemoveAsync(id);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<OfferResponseDTO>> GetAllByOrderIdAndOrderByOffeeredPriceDesc(int OrderId,int pageNumber)

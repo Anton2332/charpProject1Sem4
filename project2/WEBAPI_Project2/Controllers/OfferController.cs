@@ -14,16 +14,8 @@ namespace WEBAPI_Project2.Controllers
 
         public OfferController(IOffersService offersService) => _offersService = offersService;
 
-
-        [HttpGet("get")]
-        //[Authorize]
-        public IActionResult get()
-        {
-            return Ok("Hi Tom");
-        }
-
         [HttpPost("AddOffer")]
-        [Authorize]
+        //[Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -43,7 +35,7 @@ namespace WEBAPI_Project2.Controllers
         }
 
         [HttpPut("UpdateOffer")]
-        [Authorize]
+        //[Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -63,7 +55,7 @@ namespace WEBAPI_Project2.Controllers
         }
 
         [HttpDelete("DeleteOffer")]
-        [Authorize]
+        //[Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -83,11 +75,11 @@ namespace WEBAPI_Project2.Controllers
         }
 
         [HttpGet("GetAllByOrderIdAndOrderByOffeeredPriceDescOffer")]
-        [Authorize]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<OfferResponseDTO>>> GetAllByOrderIdAndOrderByOffeeredPriceDescOfferAsync(int orderId,int pageNumber)
+        //[Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<OfferResponseDTO>>> GetAllByOrderIdAndOrderByOffeeredPriceDescAsync(int orderId,int pageNumber)
         {
 
             try
@@ -101,6 +93,68 @@ namespace WEBAPI_Project2.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
             }
         }
+
+        [HttpGet("GetAllByOrderIdAndOrderByOffeeredPrice")]
+        //[Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<OfferResponseDTO>>> GetAllByOrderIdAndOrderByOffeeredPriceAsync(int orderId, int pageNumber)
+        {
+
+            try
+            {
+                var result = await _offersService.GetAllByOrderIdAndOrderByOffeeredPrice(orderId, pageNumber);
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
+        }
+
+
+        [HttpGet("GetAllByOrderIdAndOrderByOffeeredDayDesc")]
+        //[Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<OfferResponseDTO>>> GetAllByOrderIdAndOrderByOffeeredDayDescAsync(int orderId, int pageNumber)
+        {
+
+            try
+            {
+                var result = await _offersService.GetAllByOrderIdAndOrderByOffeeredDayDesc(orderId, pageNumber);
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
+        }
+
+        [HttpGet("GetAllByOrderIdAndOrderByOffeeredDay")]
+        //[Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<OfferResponseDTO>>> GetAllByOrderIdAndOrderByOffeeredDayAsync(int orderId, int pageNumber)
+        {
+
+            try
+            {
+                var result = await _offersService.GetAllByOrderIdAndOrderByOffeeredDay(orderId, pageNumber);
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
+        }
+
 
 
     }

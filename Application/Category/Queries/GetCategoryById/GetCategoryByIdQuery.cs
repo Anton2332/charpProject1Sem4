@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Category.Queries.GetCategoryById
 {
-    public class GetCategoryByIdQuery : IRequest<CategoryDTO>
+    public record GetCategoryByIdQuery : IRequest<CategoryDTO>
     {
         public GetCategoryByIdQuery(int id)
         {

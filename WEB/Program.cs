@@ -1,9 +1,15 @@
 
 
 
+using Application.Category.Queries.GetCategoryById;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationServices();
+builder.Services.AddMediatR(typeof(GetCategoryByIdQuery).GetTypeInfo().Assembly);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
 // Add services to the container.
@@ -23,6 +29,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+
 
 app.UseAuthorization();
 

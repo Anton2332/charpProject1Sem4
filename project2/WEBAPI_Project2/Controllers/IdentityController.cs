@@ -30,7 +30,7 @@ namespace WEBAPI_Project2.Controllers
             return Ok("1");
         }
 
-        [Authorize]
+        [Authorized]
         [HttpGet("Get1")]
         public async Task<ActionResult<string>> GetCurrentUser1()
         {

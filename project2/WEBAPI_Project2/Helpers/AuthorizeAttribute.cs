@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace WEBAPI_Project2.Helpers
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class AuthorizeAttribute:Attribute,IAuthorizationFilter
+    public class AuthorizedAttribute:Attribute,IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {

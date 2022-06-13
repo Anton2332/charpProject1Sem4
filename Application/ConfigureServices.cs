@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using Application.Behaviours;
+using Application.Category.Queries.GetCategoryById;
 using FluentValidation;
 using MediatR;
 
@@ -10,7 +12,9 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+
+
+            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             return services;
         }

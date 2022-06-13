@@ -21,9 +21,9 @@ namespace Infrastructure.Persistence
         }
 
 
-        public DbSet<Categorys> Categorys { get; }
+        public DbSet<Categorys> Categorys => Set<Categorys>();
 
-        public DbSet<OrderToCategorys> OrderToCategories { get; }
+        public DbSet<OrderToCategorys> OrderToCategories => Set<OrderToCategorys>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
