@@ -1,4 +1,6 @@
-﻿using Application.Category.Queries.GetCategoryById;
+﻿using Application.Category.Commands.CreateCategory;
+using Application.Category.Commands.DeleteCategory;
+using Application.Category.Queries.GetCategoryById;
 using Application.Category.Queries.GetCategoryList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +18,19 @@ namespace WEB.Controllers
             _mediator = mediator;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<int>> Get(int id)
-        //{
-        //    return Ok(id);
-        //}
+        [HttpPost]
+        public async Task<ActionResult<int>> Create(CreateCategoryCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await _mediator.Send(new DeleteCategoryCommand(id));
+
+            return NoContent();
+        }
 
 
         [HttpGet("{id}")]
@@ -36,24 +46,19 @@ namespace WEB.Controllers
             return Ok(category);
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<CategoryDTO>> GetAllCategory([FromQuery] GetCategoryListQuery query)
-        //{
-        //    var result = await Mediator.Send(query);
-        //    if (result != null)
-        //    {
-        //        return Ok(result);
-        //    }
-        //    else
-        //    {
-        //        return BadRequest();
-        //    }
-        //}
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetAllCategory([FromQuery] GetCategoryListQuery query)
+        {
+            var result = await _mediator.Send(query);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
 
-        //[HttpGet]
-        //public async Task<IActionResult<CategoryDTO> Get([FromQueryAttribute] GetCategoryListQuery query)
-        //{
-        //    return await Mediator.Send(query);
-        //}
     }
 }

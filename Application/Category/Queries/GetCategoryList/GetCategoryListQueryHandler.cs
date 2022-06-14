@@ -26,6 +26,7 @@ namespace Application.Category.Queries.GetCategoryList
                 .ProjectTo<CategoryDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
             return value;
+            //return value?.Select(_mapper.Map<Categorys,CategoryDTO>);
         }
     }
 }

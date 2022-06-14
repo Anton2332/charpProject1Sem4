@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.OrderToCatogory.Queries.GetOrderToCategoryByOrderIdList
 {
-    public class OrderToCategoryDTO:IMapFrom<OrderToCategorys>
+    public record OrderToCategoryDTO:IMapFrom<OrderToCategorys>
     {
         public int Id { get; set; }
         public int OrderId { get; set; }

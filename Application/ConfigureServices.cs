@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 
-            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             return services;
         }
