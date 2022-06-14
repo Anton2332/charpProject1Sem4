@@ -9,7 +9,15 @@ using System.Threading.Tasks;
 
 namespace Application.Category.Commands.DeleteCategory
 {
-    public record DeleteCategoryCommand(int Id):IRequest;
+    public record DeleteCategoryCommand:IRequest
+    {
+        public DeleteCategoryCommand(int id)
+        {
+            Id = id;
+        }
+
+        public int Id { get; }
+    }
 
 
     public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand>

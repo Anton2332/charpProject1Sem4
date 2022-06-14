@@ -1,4 +1,5 @@
-﻿using Application.OrderToCatogory.Queries.GetOrderToCategoryByOrderIdList;
+﻿using Application.OrderToCatogory.Commands.CreateOrderToCategory;
+using Application.OrderToCatogory.Queries.GetOrderToCategoryByOrderIdList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,7 @@ namespace WEB.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("GetAllByCategoryId")]
         public async Task<ActionResult<IEnumerable<OrderToCategoryDTO>>> GetAll([FromQuery] GetOrderToCategoryByOrderIdListQuery query)
         {
             var result = await _mediator.Send(query);
@@ -27,6 +28,12 @@ namespace WEB.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<int>> Create(CreateOrderToCategoryCommand command)
+        {
+            return await _mediator.Send(command);
         }
     }
 }
